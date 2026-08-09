@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dr. Roni Arbel | Paediatrics &amp; Computational Neuroscience | MD, PhD</title>
+  <meta name="description" content="Israeli-trained certified paediatrician and neuroscientist. MD, PhD: paediatrics, neonatology, and computational neuroimaging. Based in Melbourne." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-950: #001742;
+      --navy-900: #121b36;
+      --navy-800: #1b3057;
+      --navy-700: #374a6c;
+      --navy-500: #6e7d96;
+      --navy-300: #a5b0c0;
+      --navy-200: #c0c9d5;
+      --navy-100: #dce3ea;
+      --bg: #f0f3f3;
+      --bg-soft: #f7fcff;
+      --bg-panel: #fbfcfe;
+      --gold: #ad8e65;
+      --white: #ffffff;
+      --max: 1120px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --serif: "Spectral", Georgia, serif;
+      --sans: "DM Sans", "Helvetica Neue", sans-serif;
+    }
+
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--navy-900);
+      line-height: 1.65;
+      font-weight: 400;
+    }
+    ::selection { background: var(--navy-800); color: var(--bg-soft); }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap { width: min(100%, var(--max)); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+    /* sticky chrome: contact + nav stay visible while scrolling */
+    .sticky-chrome {
+      position: sticky; top: 0; z-index: 50;
+    }
+
+    /* top contact */
+    .topbar {
+      background: var(--navy-950);
+      color: var(--bg-soft);
+      font-size: 0.9rem;
+    }
+    .topbar .wrap {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 0.55rem 1.5rem; min-height: 2.65rem;
+      padding-top: 0.5rem; padding-bottom: 0.5rem;
+    }
+    .topbar a { color: var(--bg-soft); font-weight: 500; transition: color 0.2s; }
+    .topbar a:hover { color: var(--gold); }
+    .topbar .sep { color: var(--navy-500); margin: 0 0.6rem; }
+    .topbar .loc { color: var(--navy-200); }
+
+    /* nav */
+    .site-header {
+      background: rgba(240, 243, 243, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s;
+    }
+    .site-header.scrolled { border-color: var(--navy-100); }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; min-height: 4.1rem;
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--navy-950);
+      white-space: nowrap;
+    }
+    .brand span { color: var(--gold); margin: 0 0.3rem; }
+    .nav-links { display: flex; align-items: center; gap: 1.35rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.9rem; font-weight: 500;
+      color: var(--navy-700);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--navy-950); }
+    .nav-cta {
+      display: inline-flex; align-items: center;
+      padding: 0.5rem 0.95rem;
+      border: 1px solid var(--navy-200);
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--navy-950) !important;
+    }
+    .nav-cta:hover { border-color: var(--gold); }
+
+    .menu-btn {
+      display: none; width: 40px; height: 40px;
+      border: 1px solid var(--navy-100); border-radius: 10px;
+      background: var(--white); cursor: pointer; position: relative;
+    }
+    .menu-btn span {
+      position: absolute; left: 10px; right: 10px; height: 1.5px;
+      background: var(--navy-900); transition: transform 0.25s, opacity 0.25s;
+    }
+    .menu-btn span:nth-child(1) { top: 13px; }
+    .menu-btn span:nth-child(2) { top: 19px; }
+    .menu-btn span:nth-child(3) { top: 25px; }
+    body.menu-open .menu-btn span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    body.menu-open .menu-btn span:nth-child(2) { opacity: 0; }
+    body.menu-open .menu-btn span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .menu-btn { display: block; }
+      .nav-links {
+        position: fixed; inset: calc(2.65rem + 4.1rem) 0 0 0;
+        flex-direction: column; align-items: flex-start;
+        gap: 1.15rem; padding: 2rem var(--pad);
+        background: var(--bg);
+        opacity: 0; pointer-events: none;
+        transform: translateY(-8px);
+        transition: opacity 0.25s, transform 0.25s;
+      }
+      body.menu-open .nav-links { opacity: 1; pointer-events: auto; transform: none; }
+      .nav-links a { font-size: 1.3rem; }
+      .topbar .loc { display: none; }
+    }
+
+    /* hero */
+    .hero {
+      padding: clamp(2.25rem, 5vw, 3.75rem) 0 clamp(3.25rem, 6vw, 5rem);
+      background:
+        radial-gradient(1200px 500px at 85% 0%, rgba(173, 142, 101, 0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: clamp(1.75rem, 4vw, 4rem);
+      align-items: center;
+    }
+    .hero-photo {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: clamp(300px, 44vw, 520px);
+      isolation: isolate;
+    }
+    .hero-photo::before {
+      content: "";
+      position: absolute;
+      left: 50%; top: 50%;
+      width: min(92%, 440px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 40% 35%, rgba(173, 142, 101, 0.28), transparent 55%),
+        radial-gradient(circle at 60% 65%, rgba(27, 48, 87, 0.16), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(230, 238, 250, 0.95), rgba(240, 243, 243, 0));
+      z-index: 0;
+      filter: blur(2px);
+    }
+    .hero-photo img {
+      position: relative; z-index: 1;
+      width: min(100%, 500px);
+      height: auto;
+      transform: translateX(-6%);
+      filter:
+        drop-shadow(0 28px 40px rgba(18, 27, 54, 0.18))
+        drop-shadow(0 8px 18px rgba(173, 142, 101, 0.18));
+    }
+    .hero-kicker {
+      font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.35rem, 5vw, 3.55rem);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--navy-950);
+      margin-bottom: 1.1rem;
+    }
+    .hero-lede {
+      font-size: 1.08rem;
+      color: var(--navy-700);
+      max-width: 42ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 0.65rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: var(--navy-500);
+    }
+    .hero-meta strong { color: var(--navy-800); font-weight: 600; }
+    .edu-block {
+      border-top: 1px solid var(--navy-100);
+      padding-top: 1.25rem;
+    }
+    .edu-block h2 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy-500);
+      margin-bottom: 0.75rem;
+    }
+    .edu-block ul { list-style: none; display: grid; gap: 0.4rem; }
+    .edu-block li {
+      position: relative; padding-left: 1rem;
+      font-size: 0.97rem; color: var(--navy-700);
+    }
+    .edu-block li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.7rem;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--gold);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo {
+        order: -1;
+        max-width: 460px;
+        margin: 0 auto;
+        min-height: clamp(260px, 65vw, 400px);
+      }
+      .hero-photo img { width: min(100%, 420px); }
+    }
+
+    /* sections */
+    section { padding: clamp(3.25rem, 7vw, 5rem) 0; }
+    .sec-label {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(1.85rem, 3.4vw, 2.55rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--navy-950);
+      margin-bottom: 0.85rem;
+      max-width: 20ch;
+    }
+    .sec-intro {
+      font-size: 1.02rem;
+      color: var(--navy-700);
+      max-width: 52ch;
+      margin-bottom: 2.25rem;
+    }
+
+    #about { background: var(--bg-panel); border-top: 1px solid var(--navy-100); border-bottom: 1px solid var(--navy-100); }
+    .about-split {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: clamp(1.75rem, 4vw, 3.5rem);
+      align-items: start;
+    }
+    .about-copy p {
+      color: var(--navy-700);
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .about-split .figure {
+      background: var(--bg-soft);
+      border: 1px solid var(--navy-100);
+      padding: 1rem;
+    }
+    .about-split .figure img { width: 100%; mix-blend-mode: multiply; }
+    @media (max-width: 820px) { .about-split { grid-template-columns: 1fr; } }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+    .focus {
+      min-height: 140px;
+      padding: 1.25rem 1.2rem;
+      background: var(--navy-950);
+      color: var(--bg-soft);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .focus:nth-child(2) { background: var(--navy-800); }
+    .focus:nth-child(3) { background: #243a63; }
+    .focus:nth-child(4) { background: #2f466f; }
+    .focus:nth-child(5) { background: #3a5278; }
+    .focus:nth-child(6) { background: var(--navy-700); }
+    .focus::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 100% 0%, rgba(173,142,101,0.2), transparent 45%);
+      pointer-events: none;
+    }
+    .focus:hover { transform: translateY(-2px); }
+    .focus h3 {
+      position: relative;
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 500;
+      margin-bottom: 0.45rem;
+      line-height: 1.25;
+    }
+    .focus p {
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--navy-200);
+      max-width: 28ch;
+    }
+    @media (max-width: 800px) { .focus-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .focus-grid { grid-template-columns: 1fr; } }
+
+    #experience { background: var(--bg-panel); border-top: 1px solid var(--navy-100); border-bottom: 1px solid var(--navy-100); }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 9rem 1fr;
+      gap: clamp(1rem, 3vw, 2.25rem);
+      padding: 1.6rem 0;
+      border-top: 1px solid var(--navy-100);
+    }
+    .exp-row:last-child { border-bottom: 1px solid var(--navy-100); }
+    .exp-when {
+      font-size: 0.9rem; font-weight: 600;
+      color: var(--gold);
+      padding-top: 0.2rem;
+    }
+    .exp-row h3 {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 2vw, 1.45rem);
+      font-weight: 500;
+      color: var(--navy-950);
+      margin-bottom: 0.25rem;
+    }
+    .exp-org { font-size: 0.94rem; color: var(--navy-500); margin-bottom: 0.75rem; }
+    .exp-row ul { list-style: none; display: grid; gap: 0.45rem; }
+    .exp-row li {
+      position: relative; padding-left: 1.05rem;
+      font-size: 0.96rem; color: var(--navy-700);
+    }
+    .exp-row li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.65rem;
+      width: 6px; height: 6px; border-radius: 50%;
+      border: 1px solid var(--gold);
+    }
+    .exp-row li em { font-style: italic; color: var(--navy-900); }
+    @media (max-width: 700px) {
+      .exp-row { grid-template-columns: 1fr; gap: 0.35rem; }
+    }
+
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--navy-100);
+    }
+    .edu-item {
+      padding: 1.4rem 1.4rem 1.4rem 0;
+      border-bottom: 1px solid var(--navy-100);
+    }
+    .edu-item:nth-child(odd) { padding-right: 1.4rem; }
+    .edu-item .deg {
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 500;
+      color: var(--navy-950);
+      margin-bottom: 0.3rem;
+    }
+    .edu-item .inst { font-size: 0.94rem; color: var(--navy-700); }
+    .edu-item .yr { font-size: 0.85rem; color: var(--navy-500); margin-top: 0.15rem; }
+    .edu-item .note { margin-top: 0.45rem; font-size: 0.9rem; font-style: italic; color: var(--navy-500); }
+    @media (max-width: 700px) {
+      .edu-grid { grid-template-columns: 1fr; }
+      .edu-item:nth-child(odd) { padding-right: 0; }
+    }
+
+    #publications { background: var(--bg-panel); border-top: 1px solid var(--navy-100); }
+    .pub {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr auto;
+      gap: 1.1rem;
+      padding: 1.3rem 0;
+      border-bottom: 1px solid var(--navy-100);
+      align-items: baseline;
+    }
+    .pub-list { border-top: 1px solid var(--navy-100); }
+    .pub .no { font-size: 0.85rem; font-weight: 600; color: var(--gold); }
+    .pub .t {
+      font-family: var(--serif);
+      font-size: 1.08rem; font-weight: 500;
+      line-height: 1.35;
+      color: var(--navy-950);
+    }
+    .pub .a { font-size: 0.88rem; color: var(--navy-500); margin-top: 0.3rem; }
+    .pub .j { font-size: 0.85rem; color: var(--navy-700); white-space: nowrap; }
+    @media (max-width: 700px) {
+      .pub { grid-template-columns: 1fr; gap: 0.3rem; }
+      .pub .j { white-space: normal; color: var(--navy-500); }
+    }
+
+    .honours {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    .honours h3 {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy-500);
+      margin-bottom: 0.5rem;
+    }
+    .ln {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      gap: 1rem;
+      padding: 0.95rem 0;
+      border-bottom: 1px solid var(--navy-100);
+      align-items: baseline;
+    }
+    .ln:first-of-type { border-top: 1px solid var(--navy-100); }
+    .ln .y { font-size: 0.88rem; color: var(--gold); font-weight: 600; }
+    .ln .d { font-size: 0.96rem; color: var(--navy-700); }
+    @media (max-width: 720px) { .honours { grid-template-columns: 1fr; } }
+
+    .contact {
+      padding: clamp(3rem, 6vw, 4.5rem) 0;
+    }
+    .contact-inner {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 1.5rem 2rem;
+      border-top: 1px solid var(--navy-100);
+      padding-top: 2.25rem;
+    }
+    .contact h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+      font-weight: 500;
+      color: var(--navy-950);
+      margin-bottom: 0.4rem;
+    }
+    .contact p { color: var(--navy-700); max-width: 36ch; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn {
+      display: inline-flex; align-items: center;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--navy-950); color: var(--white); }
+    .btn-primary:hover { background: var(--navy-800); }
+    .btn-ghost {
+      background: var(--white);
+      border: 1px solid var(--navy-200);
+      color: var(--navy-950);
+    }
+    .btn-ghost:hover { border-color: var(--gold); }
+
+    footer {
+      border-top: 1px solid var(--navy-100);
+      padding: 1.6rem var(--pad);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    }
+    footer span { font-size: 0.85rem; color: var(--navy-500); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.75s cubic-bezier(.2,.7,.2,1), transform 0.75s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<div class="sticky-chrome">
+  <div class="topbar">
+    <div class="wrap">
+      <div>
+        <a href="mailto:rooniarbel@gmail.com">rooniarbel@gmail.com</a>
+        <span class="sep">·</span>
+        <a href="tel:0486508858">0486 508 858</a>
+      </div>
+      <span class="loc">Melbourne, Australia</span>
+    </div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap nav">
+      <a href="#home" class="brand">Roni Arbel <span>·</span> MD, PhD</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#more">Honours</a></li>
+        <li><a class="nav-cta" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+</div>
+
+<section class="hero" id="home">
+  <div class="wrap hero-grid">
+    <figure class="hero-photo reveal">
+      <img src="roni-cutout.png" alt="Portrait of Dr. Roni Arbel" />
+    </figure>
+    <div class="hero-copy">
+      <p class="hero-kicker reveal">Roni Arbel, MD/PhD</p>
+      <h1 class="reveal">Paediatrics &amp; Computational Neuroscience</h1>
+      <p class="hero-lede reveal">
+        Israeli-trained certified paediatrician and neuroscientist. I completed paediatric specialty
+        training at Hadassah Medical Center, a major tertiary hospital, working across general
+        paediatric wards and the NICU. My research focuses on cortical plasticity in sensory-deprived
+        individuals through dedicated training, rehabilitation methods, and neuroimaging. I am now
+        seeking clinical fellowships or opportunities in community paediatrics in Melbourne.
+      </p>
+      <div class="hero-meta reveal">
+        <span><strong>Based in</strong> Melbourne</span>
+        <span><strong>Now seeking</strong> clinical fellowships or opportunities in community paediatrics</span>
+      </div>
+      <div class="edu-block reveal">
+        <h2>Education &amp; Training</h2>
+        <ul>
+          <li>Israeli-trained certified paediatrician</li>
+          <li>Specialty training, Hadassah Medical Center (wards &amp; NICU)</li>
+          <li>PhD, Neuroscience, Hebrew University of Jerusalem</li>
+          <li>Doctor of Medicine (MD), Hebrew University of Jerusalem</li>
+          <li>MSc, Neuroscience · BSc Medicine, Cum Laude</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <span class="sec-label reveal">About</span>
+    <h2 class="sec-title reveal">From the paediatric ward and NICU to the research lab</h2>
+    <div class="about-split">
+      <div class="about-copy reveal">
+        <p>I am an Israeli-trained certified paediatrician and MD/PhD clinician-scientist. At Hadassah Medical Center I worked on general paediatric wards and in the NICU, including care of premature and critically ill neonates and children with metabolic, genetic, and complex conditions.</p>
+        <p>My PhD research used functional neuroimaging (fMRI) to study cortical plasticity and sensory substitution in congenitally blind adults: how dedicated training and rehabilitation reshape sensory cortex.</p>
+      </div>
+      <figure class="figure reveal">
+        <img src="brain.jpg" alt="Line illustration of a brain as a cognitive network" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <span class="sec-label reveal">Research</span>
+    <h2 class="sec-title reveal">What I have studied</h2>
+    <p class="sec-intro reveal">PhD research on neuroplasticity and sensory substitution, with clinical grounding in ward and NICU care.</p>
+    <div class="focus-grid">
+      <article class="focus reveal">
+        <h3>Neuroplasticity &amp; sensory substitution</h3>
+        <p>Cross-modal reorganisation studied with fMRI in congenitally blind adults.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Training &amp; rehabilitation</h3>
+        <p>How dedicated sensory-substitution training reshapes cortical responses.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Functional neuroimaging</h3>
+        <p>Task-based fMRI, resting-state connectivity, and related pipelines.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Clinical grounding</h3>
+        <p>Paediatric ward and NICU experience informing questions about early brain development.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Critical periods</h3>
+        <p>How sensory experience (or its absence) organises developing cortex.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Methods</h3>
+        <p>Python, MATLAB, and neuroimaging analysis for plasticity research.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <span class="sec-label reveal">Experience</span>
+    <h2 class="sec-title reveal">Clinical &amp; research appointments</h2>
+    <div class="timeline">
+      <div class="exp-row reveal">
+        <div class="exp-when">2021-2025</div>
+        <div>
+          <h3>Clinical Registrar in Pediatrics</h3>
+          <div class="exp-org">Hadassah Hospital, Mount Scopus Campus · Jerusalem</div>
+          <ul>
+            <li>Chief Registrar: led the registrar training program, integrating hospital and department needs with formal and practical clinical training.</li>
+            <li>Managed registrar scheduling and hospital placement during wartime conditions.</li>
+            <li>General paediatric wards and clinics, including metabolic and genetic conditions and rare founder mutations from the rural East Jerusalem population.</li>
+            <li>Extensive NICU experience including acute management of extremely premature and critically ill neonates.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-row reveal">
+        <div class="exp-when">2019-2020</div>
+        <div>
+          <h3>Medical Intern</h3>
+          <div class="exp-org">Shaare Zedek Medical Center · Jerusalem</div>
+          <ul><li>Selected for the competitive paediatric internship track.</li></ul>
+        </div>
+      </div>
+      <div class="exp-row reveal">
+        <div class="exp-when">2013-2022</div>
+        <div>
+          <h3>PhD Researcher, Neuroplasticity &amp; Sensory Substitution</h3>
+          <div class="exp-org">The Hebrew University of Jerusalem · Amedi Lab</div>
+          <ul>
+            <li>Thesis: <em>Sensory flexibility in cortical specializations: the blind brain as a model to challenge classical theories on the emergence of brain organization and development.</em></li>
+            <li>Designed and executed task-based fMRI studies in congenitally blind adults and healthy controls.</li>
+            <li>Developed OVAL, a novel auditory orthography optimised for visual-to-auditory sensory substitution.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <span class="sec-label reveal">Education</span>
+    <h2 class="sec-title reveal">Training path</h2>
+    <div class="edu-grid">
+      <div class="edu-item reveal">
+        <div class="deg">Israeli-trained certified paediatrician</div>
+        <div class="inst">Specialty certification in Paediatrics</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="deg">PhD, Neuroscience</div>
+        <div class="inst">The Hebrew University of Jerusalem</div>
+        <div class="yr">2013-2022</div>
+        <div class="note">Sensory flexibility in cortical specializations; the blind brain as a model</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="deg">Doctor of Medicine (MD)</div>
+        <div class="inst">The Hebrew University of Jerusalem</div>
+        <div class="yr">2013-2020</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="deg">MSc, Neuroscience</div>
+        <div class="inst">The Hebrew University of Jerusalem</div>
+        <div class="yr">2010-2012</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="deg">BSc, Medicine</div>
+        <div class="inst">The Hebrew University of Jerusalem</div>
+        <div class="yr">2009-2012</div>
+        <div class="note">Cum Laude</div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="deg">Exchange, Outstanding Students</div>
+        <div class="inst">Zhejiang University School of Medicine · Hangzhou, China</div>
+        <div class="yr">2017</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <span class="sec-label reveal">Selected publications</span>
+    <h2 class="sec-title reveal">Peer-reviewed research</h2>
+    <div class="pub-list">
+      <div class="pub reveal">
+        <div class="no">01</div>
+        <div>
+          <div class="t">Rapid plasticity in the ventral visual stream elicited by a newly learnt auditory script in congenitally blind adults</div>
+          <div class="a">Arbel R, Heimler B, Amedi A · 2023</div>
+        </div>
+        <div class="j">Neuropsychologia</div>
+      </div>
+      <div class="pub reveal">
+        <div class="no">02</div>
+        <div>
+          <div class="t">Face shape processing via visual-to-auditory sensory substitution activates regions within the face processing networks</div>
+          <div class="a">Arbel R, Heimler B, Amedi A · 2022</div>
+        </div>
+        <div class="j">Frontiers in Neuroscience</div>
+      </div>
+      <div class="pub reveal">
+        <div class="no">03</div>
+        <div>
+          <div class="t">Congenitally blind adults can learn to identify face-shapes via auditory sensory substitution and generalize learned features</div>
+          <div class="a">Arbel R, Heimler B, Amedi A · 2022</div>
+        </div>
+        <div class="j">Scientific Reports</div>
+      </div>
+      <div class="pub reveal">
+        <div class="no">04</div>
+        <div>
+          <div class="t">The sound of reading: color-to-timbre substitution boosts reading performance via OVAL, a novel auditory orthography</div>
+          <div class="a">Arbel R, Heimler B, Amedi A · 2020</div>
+        </div>
+        <div class="j">PLOS ONE</div>
+      </div>
+      <div class="pub reveal">
+        <div class="no">05</div>
+        <div>
+          <div class="t">Cross-sensory transfer of sensory-motor information: visuomotor learning affects an audiomotor task using sensory-substitution</div>
+          <div class="a">Levy-Tzedek S, Novick I, Arbel R, et al. · 2012</div>
+        </div>
+        <div class="j">Scientific Reports</div>
+      </div>
+      <div class="pub reveal">
+        <div class="no">06</div>
+        <div>
+          <div class="t">Vision through other senses: practical use of sensory substitution devices as assistive technology for visual rehabilitation</div>
+          <div class="a">Maidenbaum S, Arbel R, Buchs G, Shapira S, Amedi A · 2014</div>
+        </div>
+        <div class="j">IEEE MED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <span class="sec-label reveal">Honours &amp; teaching</span>
+    <h2 class="sec-title reveal">Awards and teaching</h2>
+    <div class="honours">
+      <div class="reveal">
+        <h3>Awards</h3>
+        <div class="ln"><div class="y">2018</div><div class="d">Student Exchange Program for Outstanding Medical Students</div></div>
+        <div class="ln"><div class="y">2017</div><div class="d">Na'amat Award for Women in Science</div></div>
+        <div class="ln"><div class="y">2016</div><div class="d">Folks Scholarship for MD/PhD Students</div></div>
+      </div>
+      <div class="reveal">
+        <h3>Teaching</h3>
+        <div class="ln"><div class="y">2025</div><div class="d">Chief Registrar of Pediatrics, Hadassah Mount Scopus</div></div>
+        <div class="ln"><div class="y">23-25</div><div class="d">Clinical Teaching Supervisor, Medical Students, Hadassah</div></div>
+        <div class="ln"><div class="y">2015</div><div class="d">TA, Biostatistics, International MPH, Hebrew University</div></div>
+        <div class="ln"><div class="y">13-16</div><div class="d">TA, Neuroanatomy, Faculty of Cognitive Science</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div class="reveal">
+      <h2>Get in touch</h2>
+      <p>For clinical opportunities, research collaborations, or introductions. I would be glad to hear from you.</p>
+    </div>
+    <div class="contact-actions reveal">
+      <a class="btn btn-primary" href="mailto:rooniarbel@gmail.com">rooniarbel@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:0486508858">0486 508 858</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Dr. Roni Arbel, MD, PhD</span>
+  <span>Israeli-trained certified paediatrician</span>
+</footer>
+
+<script>
+  var header = document.getElementById('siteHeader');
+  var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 20); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var menuBtn = document.getElementById('menuBtn');
+  var navlinks = document.getElementById('navlinks');
+  menuBtn.addEventListener('click', function () { document.body.classList.toggle('menu-open'); });
+  navlinks.addEventListener('click', function (e) {
+    if (e.target.closest('a')) document.body.classList.remove('menu-open');
+  });
+
+  var links = Array.prototype.slice.call(navlinks.querySelectorAll('a'));
+  var byId = {};
+  links.forEach(function (a) {
+    var href = a.getAttribute('href') || '';
+    if (href.charAt(0) === '#') byId[href.slice(1)] = a;
+  });
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        links.forEach(function (a) { a.classList.remove('active'); });
+        if (byId[e.target.id]) byId[e.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+  ['about','research','experience','education','publications','more','contact'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) spy.observe(el);
+  });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el, i) {
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 0.05) + 's';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
