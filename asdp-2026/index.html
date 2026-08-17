@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASDP 2026 poster | Reading through sound in blind adults | Dr. Roni Arbel</title>
+  <meta name="description" content="Roni Arbel presents Rapid and prolonged plasticity in the ventral visual stream during reading through sound in congenitally blind adults at the 14th Annual ASDP Conference, Melbourne, 20-22 August 2026." />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="ASDP 2026 poster: reading through sound in congenitally blind adults" />
+  <meta property="og:description" content="Two hours of training moved the ventral visual stream; twelve hours brought the left visual word form area into reading by ear. Presented at ASDP 2026, Melbourne." />
+  <meta property="og:image" content="https://vondiplo.github.io/roni-arbel-md-phd/asdp-2026/poster.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-950: #001742;
+      --navy-900: #121b36;
+      --navy-800: #1b3057;
+      --navy-700: #374a6c;
+      --navy-500: #6e7d96;
+      --navy-300: #a5b0c0;
+      --navy-200: #c0c9d5;
+      --navy-100: #dce3ea;
+      --bg: #f0f3f3;
+      --bg-soft: #f7fcff;
+      --bg-panel: #fbfcfe;
+      --gold: #ad8e65;
+      --gold-soft: #e2c79c;
+      --white: #ffffff;
+      --max: 1120px;
+      --pad: clamp(1.25rem, 4vw, 3.5rem);
+      --serif: "Spectral", Georgia, serif;
+      --sans: "DM Sans", "Helvetica Neue", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      scroll-padding-top: calc(2.65rem + 4.1rem + 1.25rem);
+    }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--navy-900);
+      line-height: 1.65;
+    }
+    ::selection { background: var(--navy-800); color: var(--bg-soft); }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .wrap { width: min(100%, var(--max)); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); }
+
+    /* chrome, shared with the CV and OVAL pages */
+    .sticky-chrome { position: sticky; top: 0; z-index: 50; }
+    .topbar { background: var(--navy-950); color: var(--bg-soft); font-size: 0.9rem; }
+    .topbar .wrap {
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+      gap: 0.55rem 1.5rem; min-height: 2.65rem;
+      padding-top: 0.5rem; padding-bottom: 0.5rem;
+    }
+    .topbar a { color: var(--bg-soft); font-weight: 500; transition: color 0.2s; }
+    .topbar a:hover { color: var(--gold); }
+    .topbar .loc { color: var(--navy-200); }
+
+    .site-header {
+      background: rgba(240, 243, 243, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.25s;
+    }
+    .site-header.scrolled { border-color: var(--navy-100); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 4.1rem; }
+    .brand {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--navy-950); white-space: nowrap;
+    }
+    .brand .dot { color: var(--gold); margin: 0 0.35rem; }
+    .brand-tag { color: var(--navy-700); }
+    .nav-links { display: flex; align-items: center; gap: 1.35rem; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--navy-700); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--navy-950); }
+    .nav-cta {
+      display: inline-flex; align-items: center;
+      padding: 0.5rem 0.95rem;
+      border: 1px solid var(--navy-200); border-radius: 999px;
+      background: var(--white); color: var(--navy-950) !important;
+    }
+    .nav-cta:hover { border-color: var(--gold); }
+    .cta-short { display: none; }
+    @media (max-width: 760px) {
+      .topbar .loc { display: none; }
+      .nav { min-height: 3.4rem; gap: 0.75rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-text { display: none; }
+      .brand-tag { display: none; }
+      .cta-long { display: none; }
+      .cta-short { display: inline; }
+    }
+
+    /* hero */
+    .hero {
+      padding: clamp(2.25rem, 5vw, 3.5rem) 0 clamp(2rem, 4vw, 2.75rem);
+      background:
+        radial-gradient(1200px 500px at 85% 0%, rgba(173, 142, 101, 0.14), transparent 55%),
+        linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 100%);
+    }
+    .hero-kicker {
+      font-size: 0.9rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.95rem, 4vw, 3rem);
+      font-weight: 500; line-height: 1.16; letter-spacing: -0.02em;
+      color: var(--navy-950);
+      max-width: 30ch;
+      margin-bottom: 0.9rem;
+    }
+    .hero-deck {
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .hero-lede { font-size: 1.08rem; color: var(--navy-700); max-width: 62ch; }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem 1.5rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--navy-100);
+      padding-top: 1.35rem;
+    }
+    .facts dt {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--navy-500);
+      margin-bottom: 0.2rem;
+    }
+    .facts dd { font-size: 0.95rem; color: var(--navy-800); }
+    .facts dd span { display: block; font-size: 0.85rem; color: var(--navy-500); }
+    @media (max-width: 820px) { .facts { grid-template-columns: 1fr 1fr; } }
+
+    /* sections */
+    section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
+    .sec-label {
+      display: inline-block;
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.75rem;
+    }
+    .sec-title {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      font-weight: 500; line-height: 1.15; letter-spacing: -0.02em;
+      color: var(--navy-950); margin-bottom: 0.85rem;
+    }
+    .sec-intro { font-size: 1.02rem; color: var(--navy-700); max-width: 58ch; }
+
+    /* the presentation itself */
+    #presenting { background: var(--bg-panel); border-top: 1px solid var(--navy-100); }
+    .presenting {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: clamp(1.4rem, 3vw, 2.6rem);
+      padding: clamp(1.4rem, 3vw, 2.2rem);
+      background: var(--white);
+      border: 1px solid var(--navy-100);
+      border-radius: 14px;
+    }
+    .presenting h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+      font-weight: 500; line-height: 1.25;
+      margin-bottom: 0.8rem;
+    }
+    .presenting p { color: var(--navy-700); }
+    .presenting p + p { margin-top: 0.75rem; }
+    .where {
+      list-style: none;
+      align-content: start;
+      display: grid; gap: 0.55rem;
+      padding: 1.15rem 1.25rem;
+      background: var(--navy-950); color: var(--bg-soft);
+      border-radius: 10px;
+      position: relative; overflow: hidden;
+    }
+    .where::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle at 100% 0%, rgba(173, 142, 101, 0.22), transparent 50%);
+    }
+    .where li { position: relative; font-size: 0.92rem; color: var(--navy-200); }
+    .where li b {
+      display: block;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--gold-soft);
+    }
+    @media (max-width: 820px) { .presenting { grid-template-columns: 1fr; } }
+
+    /* poster on a dark stage, the way it hangs in a hall */
+    #poster { background: var(--navy-950); color: var(--bg-soft); }
+    #poster .sec-title { color: var(--bg-soft); }
+    #poster .sec-intro { color: var(--navy-200); }
+    .poster-frame {
+      display: block;
+      width: min(100%, 780px);
+      margin: 2rem auto 0;
+      padding: clamp(0.5rem, 1.5vw, 0.9rem);
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 30px 60px rgba(0, 8, 24, 0.45), 0 2px 0 rgba(255, 255, 255, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .poster-frame:hover { transform: translateY(-3px); box-shadow: 0 38px 70px rgba(0, 8, 24, 0.55); }
+    .poster-frame:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; }
+    .poster-frame img { width: 100%; height: auto; }
+    .poster-caption {
+      width: min(100%, 780px);
+      margin: 1.1rem auto 0;
+      font-size: 0.88rem; color: var(--navy-300);
+    }
+    .poster-actions {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+      width: min(100%, 780px);
+      margin: 1.25rem auto 0;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 600; font-size: 0.95rem;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--gold); color: var(--navy-950); }
+    .btn-primary:hover { background: var(--gold-soft); }
+    .btn-ghost { border: 1px solid rgba(192, 201, 213, 0.45); color: var(--bg-soft); }
+    .btn-ghost:hover { border-color: var(--gold); }
+
+    /* findings */
+    .findings {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-top: 2.25rem;
+    }
+    .finding {
+      position: relative; overflow: hidden;
+      min-height: 190px;
+      padding: 1.35rem 1.3rem;
+      background: var(--navy-950); color: var(--bg-soft);
+      transition: transform 0.3s ease;
+    }
+    .finding:nth-child(2) { background: var(--navy-800); }
+    .finding:nth-child(3) { background: #243a63; }
+    .finding::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(circle at 100% 0%, rgba(173, 142, 101, 0.2), transparent 45%);
+    }
+    .finding:hover { transform: translateY(-2px); }
+    .finding-when {
+      position: relative; display: inline-block;
+      margin-bottom: 0.7rem; padding: 0.1rem 0.6rem;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--gold-soft);
+      border: 1px solid rgba(226, 199, 156, 0.5); border-radius: 999px;
+    }
+    .finding h3 {
+      position: relative;
+      font-family: var(--serif);
+      font-size: 1.2rem; font-weight: 500; line-height: 1.25;
+      margin-bottom: 0.45rem;
+    }
+    .finding p { position: relative; font-size: 0.92rem; color: var(--navy-200); }
+    @media (max-width: 860px) { .findings { grid-template-columns: 1fr; } }
+
+    /* method */
+    #method { background: var(--bg-panel); border-top: 1px solid var(--navy-100); border-bottom: 1px solid var(--navy-100); }
+    .method-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 4vw, 3.25rem);
+      align-items: start;
+      margin-top: 2rem;
+    }
+    .method-copy h3, .steps-head {
+      font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--navy-500);
+      margin-bottom: 0.75rem;
+    }
+    .method-copy p { color: var(--navy-700); }
+    .method-copy p + p { margin-top: 0.8rem; }
+    .steps { list-style: none; counter-reset: step; border-top: 1px solid var(--navy-100); }
+    /* Each row holds one span: a bare text node counts as another grid item and
+       would drop back into the 2rem counter column. */
+    .steps li {
+      counter-increment: step;
+      display: grid; grid-template-columns: 2rem 1fr; gap: 0.9rem;
+      align-items: baseline;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--navy-100);
+      font-size: 0.96rem; color: var(--navy-700);
+    }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      font-size: 0.82rem; font-weight: 600; color: var(--gold);
+      font-variant-numeric: tabular-nums;
+    }
+    .steps li em { font-style: normal; color: var(--navy-950); font-weight: 600; }
+    @media (max-width: 820px) { .method-split { grid-template-columns: 1fr; } }
+
+    /* further reading */
+    .reading { border-top: 1px solid var(--navy-100); margin-top: 2rem; }
+    .paper {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.6rem 1.5rem;
+      align-items: baseline;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--navy-100);
+    }
+    .paper .t {
+      font-family: var(--serif);
+      font-size: 1.05rem; font-weight: 500; line-height: 1.35;
+      color: var(--navy-950);
+    }
+    .paper .a { font-size: 0.88rem; color: var(--navy-500); margin-top: 0.25rem; }
+    .paper .j { font-size: 0.85rem; color: var(--navy-700); white-space: nowrap; }
+    .paper-link { transition: color 0.2s; }
+    .paper-link:hover { color: var(--gold); }
+    .paper-link::after { content: " \2197"; color: var(--gold); font-size: 0.85em; }
+    /* A rule under prose reads as a link; under a title that wraps it draws one
+       line per line of text. */
+    .text-link {
+      font-weight: 600; color: var(--navy-950);
+      border-bottom: 1px solid var(--gold);
+      transition: color 0.2s;
+    }
+    .text-link:hover { color: var(--gold); }
+    @media (max-width: 640px) {
+      .paper { grid-template-columns: 1fr; }
+      .paper .j { white-space: normal; color: var(--navy-500); }
+    }
+
+    /* contact */
+    .contact-inner {
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      gap: 1.5rem 2rem;
+      border-top: 1px solid var(--navy-100);
+      padding-top: 2.25rem;
+    }
+    .contact-inner h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+      font-weight: 500; color: var(--navy-950);
+      margin-bottom: 0.4rem;
+    }
+    .contact-inner p { color: var(--navy-700); max-width: 40ch; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .btn-dark { background: var(--navy-950); color: var(--white); }
+    .btn-dark:hover { background: var(--navy-800); }
+    .btn-light { background: var(--white); border: 1px solid var(--navy-200); color: var(--navy-950); }
+    .btn-light:hover { border-color: var(--gold); }
+
+    footer {
+      border-top: 1px solid var(--navy-100);
+      padding: 1.6rem var(--pad);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+    }
+    footer span { font-size: 0.85rem; color: var(--navy-500); }
+
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.75s cubic-bezier(.2,.7,.2,1), transform 0.75s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn:hover, .finding:hover, .poster-frame:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sticky-chrome">
+  <div class="topbar">
+    <div class="wrap">
+      <a href="../">&larr; Roni Arbel, MD PhD</a>
+      <span class="loc">ASDP 2026 &middot; Melbourne</span>
+    </div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap nav">
+      <a href="#top" class="brand">ASDP 2026<span class="brand-tag"><span class="dot">·</span>poster</span></a>
+      <ul class="nav-links">
+        <li class="nav-text"><a href="#poster">The poster</a></li>
+        <li class="nav-text"><a href="#findings">Findings</a></li>
+        <li class="nav-text"><a href="#method">Method</a></li>
+        <li>
+          <a class="nav-cta" href="../oval/">
+            <span class="cta-long">Hear OVAL</span><span class="cta-short">OVAL</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="hero-kicker reveal">Poster &middot; ASDP 2026, Melbourne</p>
+    <h1 class="reveal">
+      Rapid and prolonged plasticity in the ventral visual stream during reading through sound
+    </h1>
+    <p class="hero-deck reveal">Is cortical specialisation sensory-dependent or task-specific?</p>
+    <p class="hero-lede reveal">
+      Reading normally recruits specialised regions of the left fusiform gyrus, deep in the brain's
+      visual stream. So what happens in a brain that has never seen? Congenitally blind adults
+      learned OVAL, an orthography in which every letter is a shape you hear rather than see, and
+      whole-brain fMRI followed their cortex as they learned to read with it.
+    </p>
+
+    <dl class="facts reveal">
+      <div>
+        <dt>Presented at</dt>
+        <dd>14th Annual ASDP Conference <span>Australasian Society for Developmental Paediatrics</span></dd>
+      </div>
+      <div>
+        <dt>When</dt>
+        <dd>20&ndash;22 August 2026 <span>Pullman Melbourne, Albert Park</span></dd>
+      </div>
+      <div>
+        <dt>Authors</dt>
+        <dd>Roni Arbel, Benedetta Heimler, Amir Amedi</dd>
+      </div>
+      <div>
+        <dt>Affiliations</dt>
+        <dd>Hebrew University of Jerusalem &middot; Reichman University <span>Hadassah &middot; Sheba Medical Centers</span></dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section id="presenting">
+  <div class="wrap">
+    <article class="presenting reveal">
+      <div>
+        <h2>Presenting this work in Melbourne</h2>
+        <p>
+          Roni is presenting this poster at the Australasian Society for Developmental Paediatrics'
+          fourteenth annual conference, whose theme this year is <em>Development and Learning:
+          Unlocking the Puzzles</em> &mdash; a program built around where the clinic meets the
+          classroom. Fittingly, the poster closes on a panel of its own headed &ldquo;unlocking the
+          puzzle&rdquo;.
+        </p>
+        <p>
+          The question it puts to a room of developmental paediatricians is a practical one. If the
+          brain's reading machinery organises itself around what a task demands rather than around
+          the sense that delivers it, then a child who reads by ear or by fingertip is not making do
+          with a workaround. They are using the same circuitry, reached by another road.
+        </p>
+        <p>
+          If you are at the conference, come and find the poster &mdash; or write ahead and Roni
+          will make time to talk.
+        </p>
+      </div>
+      <ul class="where">
+        <li><b>Conference</b>ASDP 2026, fourteenth annual meeting</li>
+        <li><b>Theme</b>Development and Learning: Unlocking the Puzzles</li>
+        <li><b>Dates</b>Thursday 20 to Saturday 22 August 2026, with pre-conference workshops on Wednesday 19 August</li>
+        <li><b>Venue</b>Pullman Melbourne, Albert Park, Victoria</li>
+        <li><b>Format</b>Poster presentation, in person</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="poster">
+  <div class="wrap">
+    <span class="sec-label reveal">The poster</span>
+    <h2 class="sec-title reveal">Read it as it hangs</h2>
+    <p class="sec-intro reveal">
+      The full poster is below. It is a dense one, so open it at full size to follow the panels: the
+      study in brief, how an image becomes sound, the training design, and the two sets of brain maps
+      taken two hours and twelve hours in.
+    </p>
+
+    <a class="poster-frame reveal" href="asdp-2026-poster.png" target="_blank" rel="noopener"
+       aria-label="Open the full-size poster in a new tab">
+      <img src="poster.webp" width="1054" height="1492" decoding="async"
+        alt="Conference poster titled Rapid and prolonged plasticity in the ventral visual stream during reading through sound in congenitally blind adults. Panels cover the study overview, the OVAL image-to-sound conversion and EyeMusic mapping of vertical position to pitch, horizontal position to time and colour to instrument, the training and fMRI design, brain activation maps after two hours and after twelve hours of training, and three conclusions." />
+    </a>
+
+    <p class="poster-caption reveal">
+      Arbel R, Heimler B, Amedi A. Presented at ASDP 2026, Melbourne. The QR code on the poster
+      points to Roni's contact details.
+    </p>
+
+    <div class="poster-actions reveal">
+      <a class="btn btn-primary" href="asdp-2026-poster.png" target="_blank" rel="noopener">Open full size</a>
+      <a class="btn btn-ghost" href="../oval/">Hear the OVAL alphabet</a>
+    </div>
+  </div>
+</section>
+
+<section id="findings">
+  <div class="wrap">
+    <span class="sec-label reveal">Findings</span>
+    <h2 class="sec-title reveal">Unlocking the puzzle</h2>
+    <p class="sec-intro reveal">
+      Three results, in the order the brain produced them.
+    </p>
+    <div class="findings">
+      <article class="finding reveal">
+        <span class="finding-when">2 hours</span>
+        <h3>Rapid modulation</h3>
+        <p>
+          After only two hours of training, the right ventral visual stream already showed modulation
+          when participants were asked to identify letters explicitly.
+        </p>
+      </article>
+      <article class="finding reveal">
+        <span class="finding-when">~12 hours</span>
+        <h3>Emerging specialisation</h3>
+        <p>
+          By around twelve hours, reading whole words recruited the left ventral visual stream, at
+          the region sighted readers use as the visual word form area.
+        </p>
+      </article>
+      <article class="finding reveal">
+        <span class="finding-when">The answer</span>
+        <h3>Task and shape, not sense</h3>
+        <p>
+          Recruitment followed the task and the shapes it required rather than the sensory modality
+          the input arrived in. Specialisation here is computational, not sensory.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <span class="sec-label reveal">Method</span>
+    <h2 class="sec-title reveal">How the study was run</h2>
+    <p class="sec-intro reveal">
+      Eleven congenitally blind adults took part. The brain maps on the poster come from seven of
+      them, all blind from birth, imaged before training and twice after it.
+    </p>
+    <div class="method-split">
+      <div class="method-copy reveal">
+        <h3>Reading by ear</h3>
+        <p>
+          OVAL is an auditory orthography built for visual-to-auditory sensory substitution. Each of
+          its twenty-two characters is a small arrangement of coloured dots and vertical lines, and
+          the EyeMusic algorithm turns that arrangement into a sound: position from left to right
+          becomes time, height becomes pitch on a pentatonic scale, and colour becomes the instrument
+          you hear &mdash; a choir, a trumpet, a piano.
+        </p>
+        <p>
+          Because the letters keep their shapes, a blind reader learns the same spatial forms a
+          sighted reader learns, through the ear. That is what makes it a fair test of whether the
+          reading regions of the ventral visual stream care about shape and task, or about vision.
+        </p>
+        <p>
+          The same alphabet, and the same recordings the participants trained on, are
+          <a class="text-link" href="../oval/">playable in your browser</a>.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="steps-head">The training and imaging sequence</p>
+        <ol class="steps">
+          <li><span><em>Baseline fMRI</em> before any exposure to the script</span></li>
+          <li><span><em>Two hours</em> of OVAL training on letters</span></li>
+          <li><span><em>Second fMRI</em>, revealing the earliest changes</span></li>
+          <li><span><em>Behavioural testing</em> after six hours of training</span></li>
+          <li><span><em>Further training</em>, to roughly twelve hours in total</span></li>
+          <li><span><em>Final fMRI</em>: reading words, against control categories</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reading">
+  <div class="wrap">
+    <span class="sec-label reveal">Further reading</span>
+    <h2 class="sec-title reveal">The papers behind the poster</h2>
+    <div class="reading">
+      <div class="paper reveal">
+        <div>
+          <div class="t">
+            <a class="paper-link" href="https://doi.org/10.1016/j.neuropsychologia.2023.108685" target="_blank" rel="noopener">
+              Rapid plasticity in the ventral visual stream elicited by a newly learnt auditory script in congenitally blind adults
+            </a>
+          </div>
+          <div class="a">Arbel R, Heimler B, Amedi A &middot; 2023</div>
+        </div>
+        <div class="j">Neuropsychologia</div>
+      </div>
+      <div class="paper reveal">
+        <div>
+          <div class="t">
+            <a class="paper-link" href="https://doi.org/10.1371/journal.pone.0242619" target="_blank" rel="noopener">
+              The sound of reading: colour-to-timbre substitution boosts reading performance via OVAL, a novel auditory orthography
+            </a>
+          </div>
+          <div class="a">Arbel R, Heimler B, Amedi A &middot; 2020</div>
+        </div>
+        <div class="j">PLOS ONE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-inner">
+    <div class="reveal">
+      <h2>Talk about this work</h2>
+      <p>At the conference or after it &mdash; for collaborations, clinical opportunities, or a walk through the poster.</p>
+    </div>
+    <div class="contact-actions reveal">
+      <a class="btn btn-dark" href="mailto:rooniarbel@gmail.com">rooniarbel@gmail.com</a>
+      <a class="btn btn-light" href="../">Full CV</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Dr. Roni Arbel, MD, PhD</span>
+  <span>ASDP 2026 &middot; Melbourne, 20&ndash;22 August 2026</span>
+</footer>
+
+<script>
+  var header = document.getElementById('siteHeader');
+  var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 20); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { io.unobserve(e.target); e.target.classList.add('in'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el, i) {
+    el.style.transitionDelay = (Math.min(i % 6, 5) * 0.05) + 's';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>

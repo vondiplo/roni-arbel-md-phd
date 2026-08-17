@@ -31,7 +31,13 @@
       --sans: "DM Sans", "Helvetica Neue", sans-serif;
     }
 
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      /* Keeps the sticky topbar and header from covering whatever a
+         nav link jumps to. */
+      scroll-padding-top: calc(2.65rem + 4.1rem + 1.25rem);
+    }
     body {
       font-family: var(--sans);
       background: var(--bg);
@@ -93,6 +99,16 @@
     }
     .nav-links a:hover,
     .nav-links a.active { color: var(--navy-950); }
+    /* Marks the one nav item that leaves the CV for something playable. */
+    .nav-demo::before {
+      content: "";
+      display: inline-block;
+      width: 0.36em; height: 0.36em;
+      margin-right: 0.4em;
+      vertical-align: 0.1em;
+      border-radius: 50%;
+      background: var(--gold);
+    }
     .nav-cta {
       display: inline-flex; align-items: center;
       padding: 0.5rem 0.95rem;
@@ -119,12 +135,20 @@
     body.menu-open .menu-btn span:nth-child(2) { opacity: 0; }
     body.menu-open .menu-btn span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+    /* Eight items need a little more room than seven just above the breakpoint. */
+    @media (max-width: 1000px) and (min-width: 901px) {
+      .nav-links { gap: 1rem; }
+    }
+
     @media (max-width: 900px) {
       .menu-btn { display: block; }
+      /* A backdrop filter would make the header the containing block for the
+         fixed menu panel, collapsing it to the header's own height. */
+      .site-header { backdrop-filter: none; background: var(--bg); }
       .nav-links {
         position: fixed; inset: calc(2.65rem + 4.1rem) 0 0 0;
         flex-direction: column; align-items: flex-start;
-        gap: 1.15rem; padding: 2rem var(--pad);
+        gap: 0.2rem; padding: 1.5rem var(--pad);
         background: var(--bg);
         opacity: 0; pointer-events: none;
         transform: translateY(-8px);
@@ -132,6 +156,10 @@
       }
       body.menu-open .nav-links { opacity: 1; pointer-events: auto; transform: none; }
       .nav-links a { font-size: 1.3rem; }
+      /* Whole-row targets: a 27px link is hard to hit with a thumb. */
+      .nav-links li { width: 100%; }
+      .nav-links a:not(.nav-cta) { display: flex; align-items: center; min-height: 3rem; }
+      .nav-links li:last-child { margin-top: 0.9rem; }
       .topbar .loc { display: none; }
     }
 
@@ -173,9 +201,9 @@
     }
     .hero-photo img {
       position: relative; z-index: 1;
-      width: min(100%, 500px);
-      height: auto;
-      transform: translateX(-6%);
+      width: auto;
+      max-width: 100%;
+      height: clamp(320px, 40vw, 500px);
       filter:
         drop-shadow(0 28px 40px rgba(18, 27, 54, 0.18))
         drop-shadow(0 8px 18px rgba(173, 142, 101, 0.18));
@@ -208,6 +236,26 @@
       color: var(--navy-500);
     }
     .hero-meta strong { color: var(--navy-800); font-weight: 600; }
+    /* Points at whatever is happening now, which today is a conference poster. */
+    .hero-flag {
+      display: inline-flex; flex-wrap: wrap; align-items: center;
+      gap: 0.15rem 0.6rem;
+      margin-bottom: 1.5rem;
+      padding: 0.6rem 1.05rem;
+      background: var(--white);
+      border: 1px solid var(--navy-200);
+      border-radius: 10px;
+      font-size: 0.93rem; color: var(--navy-700);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .hero-flag:hover { border-color: var(--gold); transform: translateY(-1px); }
+    .hero-flag .tag {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .hero-flag strong { color: var(--navy-950); font-weight: 600; }
+    .hero-flag .go { color: var(--gold); }
     .edu-block {
       border-top: 1px solid var(--navy-100);
       padding-top: 1.25rem;
@@ -238,7 +286,7 @@
         margin: 0 auto;
         min-height: clamp(260px, 65vw, 400px);
       }
-      .hero-photo img { width: min(100%, 420px); }
+      .hero-photo img { height: clamp(300px, 62vw, 380px); }
     }
 
     /* sections */
@@ -285,7 +333,7 @@
       border: 1px solid var(--navy-100);
       padding: 1rem;
     }
-    .about-split .figure img { width: 100%; mix-blend-mode: multiply; }
+    .about-split .figure img { width: 100%; height: auto; mix-blend-mode: multiply; }
     @media (max-width: 820px) { .about-split { grid-template-columns: 1fr; } }
 
     .focus-grid {
@@ -525,6 +573,7 @@
         <li><a href="#education">Education</a></li>
         <li><a href="#publications">Publications</a></li>
         <li><a href="#more">Honours</a></li>
+        <li><a class="nav-demo" href="oval/">Try OVAL</a></li>
         <li><a class="nav-cta" href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -534,7 +583,7 @@
 <section class="hero" id="home">
   <div class="wrap hero-grid">
     <figure class="hero-photo reveal">
-      <img src="roni-cutout.png" alt="Portrait of Dr. Roni Arbel" />
+      <img src="roni-portrait.webp" width="646" height="1200" alt="Portrait of Dr. Roni Arbel" />
     </figure>
     <div class="hero-copy">
       <p class="hero-kicker reveal">Roni Arbel, MD/PhD</p>
@@ -550,6 +599,11 @@
         <span><strong>Based in</strong> Melbourne</span>
         <span><strong>Now seeking</strong> clinical fellowships or opportunities in community paediatrics</span>
       </div>
+      <a class="hero-flag reveal" href="asdp-2026/">
+        <span class="tag">Poster</span>
+        <span>Presenting at <strong>ASDP 2026</strong>, Melbourne &middot; 20&ndash;22
+          August&nbsp;<span class="go">&rarr;</span></span>
+      </a>
       <div class="edu-block reveal">
         <h2>Education &amp; Training</h2>
         <ul>
@@ -574,7 +628,7 @@
         <p>My PhD research used functional neuroimaging (fMRI) to study cortical plasticity and sensory substitution in congenitally blind adults: how dedicated training and rehabilitation reshape sensory cortex.</p>
       </div>
       <figure class="figure reveal">
-        <img src="brain.jpg" alt="Line illustration of a brain as a cognitive network" />
+        <img src="brain.webp" width="880" height="973" loading="lazy" decoding="async" alt="Line illustration of a brain as a cognitive network" />
       </figure>
     </div>
   </div>
@@ -584,7 +638,11 @@
   <div class="wrap">
     <span class="sec-label reveal">Research</span>
     <h2 class="sec-title reveal">What I have studied</h2>
-    <p class="sec-intro reveal">PhD research on neuroplasticity and sensory substitution, with clinical grounding in ward and NICU care.</p>
+    <p class="sec-intro reveal">
+      PhD research on neuroplasticity and sensory substitution, with clinical grounding in ward and
+      NICU care. The most recent of it goes to ASDP 2026 in Melbourne as a poster on how the brain
+      learns to read through sound. <a class="inline-link" href="asdp-2026/">See the poster &rarr;</a>
+    </p>
     <div class="focus-grid">
       <article class="focus reveal">
         <h3>Neuroplasticity &amp; sensory substitution</h3>
@@ -627,7 +685,7 @@
           <ul>
             <li>Chief Registrar: led the registrar training program, integrating hospital and department needs with formal and practical clinical training.</li>
             <li>Managed registrar scheduling and hospital placement during wartime conditions.</li>
-            <li>General paediatric wards and clinics, including metabolic and genetic conditions and rare founder mutations from the rural East Jerusalem population.</li>
+            <li>General paediatric wards and clinics, including metabolic and genetic conditions and rare founder mutations from the rural Jerusalem population.</li>
             <li>Extensive NICU experience including acute management of extremely premature and critically ill neonates.</li>
           </ul>
         </div>

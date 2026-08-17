@@ -51,7 +51,7 @@ const engine = new OvalEngine();
 
 const state = {
   speed: Number(el.speed.value),
-  script: 'hebrew',
+  script: 'latin',
   pps: scaleForViewport(),
   tiles: [],
   activeIndex: -1,
