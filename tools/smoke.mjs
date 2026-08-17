@@ -1,0 +1,95 @@
+// Loads the built site the way GitHub Pages will serve it and proves it works:
+// the reading plays, the alphabet renders, the link from the CV page arrives,
+// and nothing 404s or throws along the way.
+//
+// Run:  node tools/smoke.mjs
+
+import { chromium } from 'playwright';
+import { startServer } from './serve.mjs';
+
+const server = await startServer();
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+
+const failures = [];
+const warnings = [];
+const expect = (label, ok, detail = '') => {
+  console.log(`${ok ? 'ok  ' : 'FAIL'}  ${label}${detail ? `  ${detail}` : ''}`);
+  if (!ok) failures.push(label);
+};
+
+// Only our own files can fail the run. Google Fonts occasionally 404s a single
+// variant, and the page falls back cleanly, so a CDN hiccup must not turn CI red.
+const origin = new URL(server.url).origin;
+const ours = (url = '') => url.startsWith(origin);
+const note = (url, message) => (ours(url) ? failures : warnings).push(message);
+
+page.on('pageerror', (error) => failures.push(`uncaught: ${error.message}`));
+page.on('console', (message) => {
+  if (message.type() !== 'error') return;
+  note(message.location()?.url, `console: ${message.text()}`);
+});
+page.on('requestfailed', (request) => {
+  note(request.url(), `request failed: ${request.url()} (${request.failure()?.errorText})`);
+});
+page.on('response', (response) => {
+  if (response.status() >= 400) note(response.url(), `HTTP ${response.status()}: ${response.url()}`);
+});
+
+try {
+  console.log(`serving at ${server.url}\n`);
+
+  await page.goto(`${server.url}oval/`, { waitUntil: 'load' });
+  await page.waitForFunction(() => document.querySelectorAll('.tile').length > 0, { timeout: 30000 });
+
+  const tiles = await page.locator('.tile').count();
+  expect('the default reading builds its letter strip', tiles > 0, `${tiles} tiles`);
+
+  const chart = await page.locator('.letter').count();
+  expect('the alphabet chart renders all 22 characters', chart === 22, `${chart} characters`);
+
+  const marks = await page.locator('.tile .glyph rect').count();
+  expect('characters are drawn as dots and lines', marks > 0, `${marks} marks`);
+
+  // Audio has to decode from the served .wav files for this to advance.
+  await page.locator('#stage').scrollIntoViewIfNeeded();
+  await page.click('#play');
+  await page.waitForFunction(() => Number(document.getElementById('elapsed').textContent) > 0.4, {
+    timeout: 15000,
+  });
+  const elapsed = await page.locator('#elapsed').textContent();
+  expect('playback advances through the recording', Number(elapsed) > 0.4, `${elapsed}s`);
+  await page.click('#play');
+
+  // Typing in Latin exercises the transcription and reloads different sounds.
+  await page.fill('#text', 'HELLO');
+  await page.waitForFunction(() => document.querySelectorAll('.tile').length === 5, { timeout: 30000 });
+  const captions = await page.locator('.tile-cap').allTextContents();
+  expect('Latin input transcribes to OVAL characters', captions.join('|') === 'חH|וE|לL|לL|הO', captions.join('|'));
+
+  await page.goto(server.url, { waitUntil: 'load' });
+  const link = page.locator('a[href="oval/"]').first();
+  expect('the CV page links to the app', (await link.count()) > 0);
+  await link.click();
+  await page.waitForURL('**/oval/', { timeout: 15000 });
+  expect('that link lands on the app', page.url().endsWith('/oval/'), page.url());
+  await page.waitForFunction(() => document.querySelectorAll('.tile').length > 0, { timeout: 30000 });
+} catch (error) {
+  failures.push(`${error.message.split('\n')[0]}`);
+} finally {
+  await browser.close();
+  await server.close();
+}
+
+const thirdParty = [...new Set(warnings)];
+if (thirdParty.length > 0) {
+  console.log(`\n${thirdParty.length} third-party resource(s) did not load, which the page survives:`);
+  for (const warning of thirdParty) console.log(`    ${warning}`);
+}
+
+if (failures.length > 0) {
+  console.log(`\n${failures.length} problem(s) in files this repo serves:`);
+  for (const failure of [...new Set(failures)]) console.log(`    ${failure}`);
+  process.exit(1);
+}
+console.log('\nthe site works when served the way GitHub Pages serves it');

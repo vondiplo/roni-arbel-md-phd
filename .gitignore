@@ -1,0 +1,6 @@
+node_modules/
+
+# A zipped copy of the site, which should not be published alongside it.
+index.html.zip
+
+.DS_Store

@@ -1,0 +1,34 @@
+name: checks
+
+# The site itself is still published by the built-in GitHub Pages branch
+# deployment. This workflow only verifies it, so a broken push is visible here
+# rather than on the live site.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      # Runs on a case-sensitive filesystem, which is the point: a reference that
+      # only works on a Mac fails here instead of on the live site.
+      - name: Check what will deploy
+        run: npm run check
+
+      - run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Load the site as Pages will serve it
+        run: npm run smoke

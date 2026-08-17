@@ -1,0 +1,15 @@
+{
+  "name": "roni-arbel-md-phd",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal site and the OVAL auditory orthography player, deployed as a static site on GitHub Pages.",
+  "scripts": {
+    "serve": "node tools/serve.mjs",
+    "check": "node tools/check-deploy.mjs",
+    "smoke": "node tools/smoke.mjs",
+    "verify": "npm run check && npm run smoke"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  }
+}
