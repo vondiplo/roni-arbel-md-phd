@@ -364,6 +364,14 @@
       border: 1px solid var(--gold);
     }
     .exp-row li em { font-style: italic; color: var(--navy-900); }
+    .inline-link {
+      font-weight: 600;
+      color: var(--navy-950);
+      border-bottom: 1px solid var(--gold);
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .inline-link:hover { color: var(--gold); }
     @media (max-width: 700px) {
       .exp-row { grid-template-columns: 1fr; gap: 0.35rem; }
     }
@@ -640,7 +648,7 @@
           <ul>
             <li>Thesis: <em>Sensory flexibility in cortical specializations: the blind brain as a model to challenge classical theories on the emergence of brain organization and development.</em></li>
             <li>Designed and executed task-based fMRI studies in congenitally blind adults and healthy controls.</li>
-            <li>Developed OVAL, a novel auditory orthography optimised for visual-to-auditory sensory substitution.</li>
+            <li>Developed OVAL, a novel auditory orthography optimised for visual-to-auditory sensory substitution. <a class="inline-link" href="oval/">Try it in your browser &rarr;</a></li>
           </ul>
         </div>
       </div>

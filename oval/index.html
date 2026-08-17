@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OVAL | An auditory orthography | Dr. Roni Arbel</title>
+  <meta name="description" content="Write in Hebrew or in Latin transcription and hear it in OVAL, a novel auditory orthography for visual-to-auditory sensory substitution. Every letter is a shape you can hear." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="sticky-chrome">
+  <div class="topbar">
+    <div class="wrap">
+      <a href="../">&larr; Roni Arbel, MD PhD</a>
+      <span class="loc">A novel auditory orthography</span>
+    </div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap nav">
+      <a href="#top" class="brand">OVAL<span class="brand-tag"><span class="dot">·</span>sound as script</span></a>
+      <ul class="nav-links">
+        <li class="nav-text"><a href="#composer">Write</a></li>
+        <li class="nav-text"><a href="#how">How it works</a></li>
+        <li>
+          <a class="nav-cta" href="https://doi.org/10.1371/journal.pone.0242619" target="_blank" rel="noopener">
+            <span class="cta-long">Read the paper</span><span class="cta-short">Paper</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="hero-kicker reveal">Visual-to-auditory sensory substitution</p>
+    <h1 class="reveal">Every letter is a sound.<br />Every sound has a shape.</h1>
+    <p class="hero-lede reveal">
+      OVAL is an auditory orthography developed for blind readers. Each character is a small
+      arrangement of dots and vertical lines, and the EyeMusic algorithm turns that arrangement
+      into sound: left to right is time, high to low is pitch, and colour is the instrument you
+      hear. Write a word below in Hebrew or in transcription, then follow the sweep as it reads.
+    </p>
+  </div>
+</section>
+
+<section id="composer">
+  <div class="wrap">
+    <span class="sec-label reveal">Write</span>
+    <h2 class="sec-title reveal">Compose a word</h2>
+
+    <div class="composer reveal">
+      <label class="field-label" for="text">Your word or sentence</label>
+      <textarea id="text" class="field" dir="auto" rows="2" spellcheck="false"
+        placeholder="הקלד מילה או משפט" aria-describedby="textHint">שלום עולם</textarea>
+      <p class="field-hint" id="textHint">
+        Write in Hebrew, or in the Latin transcription the paper prints beside it &mdash; both reach
+        the same 22 characters. Pauses follow the original app: 0.5s for a space, 0.75s for a
+        comma, 1s for a full stop.
+      </p>
+      <p class="field-warn" id="unsupported" hidden></p>
+
+      <div class="samples">
+        <span class="samples-label">Try</span>
+        <button type="button" class="chip" data-sample="שלום עולם">שלום עולם</button>
+        <button type="button" class="chip" data-sample="HELLO">HELLO</button>
+        <button type="button" class="chip" data-sample="ספר, מכתב.">ספר, מכתב.</button>
+        <button type="button" class="chip" data-sample="READ">READ</button>
+        <button type="button" class="chip" data-sample="קוראים באוזניים">קוראים באוזניים</button>
+      </div>
+
+      <div class="composer-tools">
+        <div class="script-toggle" id="scriptToggle" role="group" aria-label="Keyboard script">
+          <button type="button" data-script="hebrew" aria-pressed="true">עברית</button>
+          <button type="button" data-script="latin" aria-pressed="false">Latin</button>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="kbToggle" aria-expanded="false" aria-controls="keyboard">
+          On-screen keyboard
+        </button>
+        <div class="speed">
+          <label for="speed">Reading speed</label>
+          <input type="range" id="speed" min="0" max="16" step="1" value="8"
+            aria-describedby="speedValue" />
+          <output id="speedValue" for="speed">Normal</output>
+        </div>
+      </div>
+
+      <div class="keyboard" id="keyboard" hidden></div>
+    </div>
+  </div>
+</section>
+
+<section id="stage-section">
+  <div class="wrap">
+    <div class="stage" id="stage">
+      <div class="stage-head">
+        <div>
+          <span class="stage-label">The sound image</span>
+          <p class="stage-note">The sweep line reads left to right; the mark under it is the one sounding.</p>
+        </div>
+        <div class="now" aria-hidden="true">
+          <span class="now-glyph" id="nowGlyph"></span>
+          <span class="now-text">
+            <span class="now-char" id="nowChar">&middot;</span>
+            <span class="now-name" id="nowName">ready</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="strip-viewport" id="stripViewport">
+        <div class="strip-track" id="stripTrack">
+          <div class="playhead" id="playhead" hidden>
+            <!-- A pointer affordance only: the scrubber below is the accessible
+                 equivalent, so this is kept out of the tab order. -->
+            <button type="button" class="playhead-grip" id="playheadGrip"
+              tabindex="-1" aria-hidden="true" title="Drag to move the reading position"></button>
+          </div>
+        </div>
+      </div>
+
+      <p class="stage-status" id="status">Loading sounds&hellip;</p>
+
+      <div class="transport">
+        <button type="button" class="btn btn-primary btn-play" id="play" aria-label="Play">
+          <span class="icon-play" aria-hidden="true"></span>
+          <span id="playLabel">Play</span>
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" id="restart">Restart</button>
+
+        <div class="scrub" id="scrub" role="slider" tabindex="0"
+          aria-label="Reading position"
+          aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="0 seconds">
+          <div class="scrub-track">
+            <div class="scrub-fill" id="scrubFill"></div>
+            <div class="scrub-ticks" id="scrubTicks"></div>
+            <div class="scrub-thumb" id="scrubThumb"></div>
+          </div>
+        </div>
+
+        <div class="time"><span id="elapsed">0.0</span> / <span id="total">0.0</span>s</div>
+      </div>
+
+      <p class="sr-only" id="live" aria-live="polite"></p>
+    </div>
+
+    <p class="shortcuts">
+      <strong>Space</strong> play or pause &middot;
+      <strong>&larr; &rarr;</strong> previous or next letter &middot;
+      <strong>Home / End</strong> jump to the start or the end &middot;
+      tap a letter, or drag the marker, to move the reading position
+    </p>
+  </div>
+</section>
+
+<section id="alphabet-section">
+  <div class="wrap">
+    <span class="sec-label reveal">The alphabet</span>
+    <h2 class="sec-title reveal">Twenty-two characters</h2>
+    <p class="sec-intro reveal">
+      Every character combines up to four dots and vertical lines, borrowing the spatial patterns of
+      Braille and the temporal patterns of Morse. Lines run vertically rather than horizontally so
+      that a line is heard as a chord instead of a long tone. Tap any character to hear it. The
+      eleven marked with a ring are the ones participants were trained on.
+    </p>
+    <div class="alphabet reveal" id="alphabet"></div>
+    <ul class="legend reveal">
+      <li><span class="swatch swatch-white"></span>White is a choir</li>
+      <li><span class="swatch swatch-blue"></span>Blue is a trumpet</li>
+      <li><span class="swatch swatch-red"></span>Red is a piano</li>
+    </ul>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <span class="sec-label reveal">How it works</span>
+    <h2 class="sec-title reveal">Reading with your ears</h2>
+    <p class="sec-intro reveal">
+      OVAL was designed so that characters stay distinguishable once a shape has become sound.
+      This page is a web port of the original Android app and plays the same recordings.
+    </p>
+    <div class="focus-grid">
+      <article class="focus reveal">
+        <h3>A sweep line</h3>
+        <p>Each character is scanned left to right, so the marks are heard in the order they are drawn.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Height is pitch</h3>
+        <p>Vertical position maps onto a pentatonic scale, and a line becomes a chord.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Colour is timbre</h3>
+        <p>A redundant cue that made readers both faster and more accurate than monochrome ones.</p>
+      </article>
+      <article class="focus reveal">
+        <h3>Seventeen speeds</h3>
+        <p>Every character was recorded at 17 tempos, from eight steps slower to eight steps faster.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Dr. Roni Arbel, MD, PhD</span>
+  <span>OVAL &middot; Amedi Lab, The Hebrew University of Jerusalem</span>
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
