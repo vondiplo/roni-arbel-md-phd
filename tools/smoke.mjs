@@ -85,7 +85,7 @@ try {
   const drawn = await poster.evaluate((img) => img.complete && img.naturalWidth > 0);
   expect('the ASDP poster renders', drawn);
   const fullSize = await page.locator('.poster-frame').getAttribute('href');
-  expect('the poster opens at full size', fullSize === 'asdp-2026-poster.png', String(fullSize));
+  expect('the poster opens at full size', fullSize === 'asdp-2026-poster.jpg', String(fullSize));
 
   await page.goto(server.url, { waitUntil: 'load' });
   expect('the CV page links to the poster', (await page.locator('a[href="asdp-2026/"]').count()) > 0);
