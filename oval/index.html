@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OVAL | An auditory orthography | Dr. Roni Arbel</title>
-  <meta name="description" content="Write in Latin transcription or in Hebrew and hear it in OVAL, a novel auditory orthography for visual-to-auditory sensory substitution. Every letter is a shape you can hear." />
+  <meta name="description" content="Type a word and hear it in OVAL, a novel auditory orthography for visual-to-auditory sensory substitution. Every letter is a shape you can hear." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -44,7 +44,7 @@
       OVAL is an auditory orthography developed for blind readers. Each character is a small
       arrangement of dots and vertical lines, and the EyeMusic algorithm turns that arrangement
       into sound: left to right is time, high to low is pitch, and colour is the instrument you
-      hear. Write a word below in transcription or in Hebrew, then follow the sweep as it reads.
+      hear. Write a word below, then follow the sweep as it reads.
     </p>
   </div>
 </section>
@@ -57,28 +57,19 @@
     <div class="composer reveal">
       <label class="field-label" for="text">Your word or sentence</label>
       <textarea id="text" class="field" dir="auto" rows="2" spellcheck="false"
-        placeholder="type a word or a sentence" aria-describedby="textHint">HELLO WORLD</textarea>
-      <p class="field-hint" id="textHint">
-        Write in the Latin transcription the paper prints beside the alphabet, or in Hebrew
-        &mdash; both reach the same 22 characters. Pauses follow the original app: 0.5s for a
-        space, 0.75s for a comma, 1s for a full stop.
-      </p>
+        placeholder="type a word or a sentence">HELLO WORLD</textarea>
       <p class="field-warn" id="unsupported" hidden></p>
 
       <div class="samples">
         <span class="samples-label">Try</span>
-        <button type="button" class="chip" data-sample="שלום עולם">שלום עולם</button>
-        <button type="button" class="chip" data-sample="HELLO">HELLO</button>
-        <button type="button" class="chip" data-sample="ספר, מכתב.">ספר, מכתב.</button>
         <button type="button" class="chip" data-sample="READ">READ</button>
-        <button type="button" class="chip" data-sample="קוראים באוזניים">קוראים באוזניים</button>
+        <button type="button" class="chip" data-sample="SOUND">SOUND</button>
+        <button type="button" class="chip" data-sample="MUSIC">MUSIC</button>
+        <button type="button" class="chip" data-sample="BRAIN">BRAIN</button>
+        <button type="button" class="chip" data-sample="BOOK, LETTER.">BOOK, LETTER.</button>
       </div>
 
       <div class="composer-tools">
-        <div class="script-toggle" id="scriptToggle" role="group" aria-label="Keyboard script">
-          <button type="button" data-script="hebrew" aria-pressed="false">עברית</button>
-          <button type="button" data-script="latin" aria-pressed="true">Latin</button>
-        </div>
         <button type="button" class="btn btn-ghost btn-sm" id="kbToggle" aria-expanded="false" aria-controls="keyboard">
           On-screen keyboard
         </button>
@@ -210,8 +201,8 @@
     <span class="sec-label reveal">Beyond the lab</span>
     <h2 class="sec-title reveal">Taught as a reading system</h2>
     <p class="sec-intro reveal">
-      Every OVAL study until 2022 had taught the alphabet to people who could already read, in
-      Hebrew, their first language. A master's thesis in education took it somewhere else.
+      Every OVAL study until 2022 had taught the alphabet to people who could already read in their
+      first language. A master's thesis in education took it somewhere else.
     </p>
     <article class="study reveal">
       <div class="study-body">

@@ -61,11 +61,23 @@ try {
   expect('playback advances through the recording', Number(elapsed) > 0.4, `${elapsed}s`);
   await page.click('#play');
 
-  // Typing in Latin exercises the transcription and reloads different sounds.
+  // Typing reloads different sounds, and the page prints the letters as typed.
   await page.fill('#text', 'HELLO');
   await page.waitForFunction(() => document.querySelectorAll('.tile').length === 5, { timeout: 30000 });
   const captions = await page.locator('.tile-cap').allTextContents();
-  expect('Latin input transcribes to OVAL characters', captions.join('|') === 'חH|וE|לL|לL|הO', captions.join('|'));
+  expect('typing prints the letters back', captions.join('|') === 'H|E|L|L|O', captions.join('|'));
+
+  // Hebrew is still accepted, and only then does it appear on the page.
+  await page.fill('#text', '\u05e9\u05dc\u05d5\u05dd');
+  await page.waitForFunction(() => document.querySelectorAll('.tile').length === 4, { timeout: 30000 });
+  const hebrew = await page.locator('.tile-cap').allTextContents();
+  expect('Hebrew still reads, and shows only when typed',
+    hebrew.join('|') === '\u05e9S|\u05dcL|\u05d5E|\u05ddM', hebrew.join('|'));
+  const anyHebrewElsewhere = await page.evaluate(() => {
+    const outside = [...document.querySelectorAll('.letter, .chip, .kb-key, .hero-lede, .sec-intro')];
+    return outside.filter((node) => /[\u0590-\u05FF]/.test(node.textContent)).length;
+  });
+  expect('nothing else on the page is in Hebrew', anyHebrewElsewhere === 0, `${anyHebrewElsewhere} found`);
 
   // The poster page is one large image, so a decoded image is the whole test.
   await page.goto(`${server.url}asdp-2026/`, { waitUntil: 'load' });

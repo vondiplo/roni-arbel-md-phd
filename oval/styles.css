@@ -159,7 +159,6 @@ section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
 }
 .field:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
 .field::placeholder { color: var(--navy-300); }
-.field-hint { font-size: 0.88rem; color: var(--navy-500); margin-top: 0.6rem; }
 .field-warn { font-size: 0.88rem; color: #8a5a2b; margin-top: 0.4rem; }
 .field-warn b { font-family: var(--hebrew); font-weight: 500; }
 
@@ -184,18 +183,6 @@ section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
   gap: 1rem; margin-top: 1.35rem;
   border-top: 1px solid var(--navy-100); padding-top: 1.1rem;
 }
-.script-toggle {
-  display: flex; border: 1px solid var(--navy-200); border-radius: 999px; overflow: hidden;
-}
-.script-toggle button {
-  font-family: var(--sans); font-size: 0.8rem; font-weight: 600;
-  padding: 0.35rem 0.85rem;
-  border: 0; background: var(--white); color: var(--navy-500);
-  cursor: pointer; transition: background 0.2s, color 0.2s;
-}
-.script-toggle button:first-child { font-family: var(--hebrew); font-size: 0.9rem; }
-.script-toggle button[aria-pressed="true"] { background: var(--navy-950); color: var(--bg-soft); }
-
 .speed { display: flex; align-items: center; gap: 0.7rem; flex: 1 1 260px; }
 .speed label {
   font-size: 0.78rem; font-weight: 700;
@@ -213,20 +200,18 @@ section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
 
 /* keyboard */
 .keyboard { margin-top: 1.1rem; display: grid; gap: 0.35rem; }
-.keyboard[data-script="hebrew"] { direction: rtl; }
 .kb-row { display: flex; gap: 0.35rem; justify-content: center; }
 .kb-key {
   flex: 1 1 0; min-width: 0;
   aspect-ratio: 1 / 1; max-height: 3rem;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--hebrew); font-size: 1.15rem;
+  font-family: var(--sans); font-size: 1.15rem; font-weight: 600;
   color: var(--navy-950);
   background: var(--bg-soft);
   border: 1px solid var(--navy-100); border-radius: 8px;
   cursor: pointer; user-select: none;
   transition: background 0.12s, border-color 0.12s, transform 0.08s;
 }
-.keyboard[data-script="latin"] .kb-key { font-family: var(--sans); font-weight: 600; }
 .kb-key:hover { border-color: var(--gold); }
 .kb-key:active { background: var(--navy-950); color: var(--bg-soft); transform: translateY(1px); }
 .kb-key-util {
@@ -486,17 +471,16 @@ section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
   background: #000; border-radius: 999px;
 }
 .letter-pill .glyph { width: auto; height: 86%; }
-.letter-name {
-  font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
-  color: var(--navy-300);
+.letter-char {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 1.6rem; min-height: 1.6rem;
+  font-size: 1.05rem; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--bg-soft);
 }
-.letter.is-trained .letter-name {
+.letter.is-trained .letter-char {
   color: var(--gold-soft);
-  padding: 0.05rem 0.4rem; border: 1px solid rgba(226, 199, 156, 0.5); border-radius: 999px;
+  border: 1px solid rgba(226, 199, 156, 0.5); border-radius: 999px;
 }
-.letter-chars { display: flex; align-items: baseline; gap: 0.3rem; color: var(--bg-soft); }
-.letter-chars b { font-family: var(--hebrew); font-size: 1.05rem; font-weight: 400; }
-.letter-chars i { font-style: normal; font-size: 0.8rem; font-weight: 600; color: var(--navy-200); }
 
 .legend {
   display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem;
@@ -519,8 +503,6 @@ section { padding: clamp(2.5rem, 5.5vw, 4rem) 0; }
 @media (max-width: 560px) {
   .alphabet { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
   .letter-pill { height: 4rem; }
-  /* 0.66rem is under 11px on a phone. */
-  .letter-name { font-size: 0.72rem; }
 }
 
 /* how it works */

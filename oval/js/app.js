@@ -1,7 +1,7 @@
 import { buildAlphabet } from './alphabet.js';
 import { OvalEngine } from './engine.js';
 import { glyphPill, glyphSvg, glyphTiming } from './glyph.js';
-import { GLYPHS } from './glyphs.js';
+import { COLOURS, GLYPHS } from './glyphs.js';
 import { buildKeyboard } from './keyboard.js';
 import { latinGap, letterNames, parseText, SPEEDS, speedLabel } from './letters.js';
 
@@ -9,9 +9,13 @@ const SCROLL_MARGIN = 90;
 // Matches the horizontal padding of .strip-track, which is the origin that
 // absolutely positioned tiles and the playhead are placed from.
 const GUTTER = 18;
-// Room under each glyph for its two names, and above it for the drag handle.
+// Room under each glyph for its caption, and above it for the drag handle.
 const CAPTION_H = 26;
 const RAIL_H = 20;
+
+// A character can be written either way round, so the page prints whichever the
+// reader typed and only names the homologue when the two differ.
+const HEBREW_CHAR = /[\u0590-\u05FF]/;
 
 // Tighter timeline on phones so several letters stay on screen at once.
 function scaleForViewport() {
@@ -44,14 +48,12 @@ const el = {
   nowChar: document.getElementById('nowChar'),
   nowName: document.getElementById('nowName'),
   alphabet: document.getElementById('alphabet'),
-  scriptToggle: document.getElementById('scriptToggle'),
 };
 
 const engine = new OvalEngine();
 
 const state = {
   speed: Number(el.speed.value),
-  script: 'latin',
   pps: scaleForViewport(),
   tiles: [],
   activeIndex: -1,
@@ -140,7 +142,7 @@ function reportUnsupported(items) {
   const list = chars.map((c) => `<b>${escapeHtml(c)}</b>`).join(', ');
   const gaps = chars.filter(latinGap);
   const note = gaps.length
-    ? ' The Latin transcription covers 22 letters, without F, V, X or Y.'
+    ? ' The alphabet runs to 22 characters, and F, V, X and Y are not among them.'
     : '';
   el.unsupported.hidden = false;
   el.unsupported.innerHTML =
@@ -228,19 +230,23 @@ function caption(segment) {
     return cap;
   }
   const glyph = GLYPHS[segment.name];
-  const hebrew = document.createElement('b');
-  hebrew.lang = 'he';
-  hebrew.textContent = glyph.hebrew;
-  const latin = document.createElement('i');
-  latin.textContent = glyph.latin;
-  cap.append(hebrew, latin);
+  const typed = document.createElement('b');
+  const asHebrew = HEBREW_CHAR.test(segment.char);
+  if (asHebrew) typed.lang = 'he';
+  typed.textContent = asHebrew ? segment.char : glyph.latin;
+  cap.append(typed);
+  if (asHebrew) {
+    const latin = document.createElement('i');
+    latin.textContent = glyph.latin;
+    cap.append(latin);
+  }
   return cap;
 }
 
 function describe(segment) {
   if (segment.kind === 'letter') {
     const glyph = GLYPHS[segment.name];
-    return `${glyph.hebrew} ${glyph.latin}, ${segment.name}`;
+    return `${glyph.latin}, ${COLOURS[glyph.colour].instrument}`;
   }
   if (segment.char === ' ') return 'space';
   if (segment.char === ',') return 'comma pause';
@@ -301,10 +307,12 @@ function setActive(index) {
     el.nowName.textContent = segment ? describe(segment) : engine.duration > 0 ? 'ready' : '';
   } else {
     const glyph = GLYPHS[segment.name];
+    const asHebrew = HEBREW_CHAR.test(segment.char);
     el.nowGlyph.textContent = '';
     el.nowGlyph.append(glyphPill(segment.name, { rowH: 5 }));
-    el.nowChar.textContent = `${glyph.hebrew} ${glyph.latin}`;
-    el.nowName.textContent = `${segment.name} \u00b7 ${glyph.colour}`;
+    el.nowChar.lang = asHebrew ? 'he' : '';
+    el.nowChar.textContent = asHebrew ? `${segment.char} ${glyph.latin}` : glyph.latin;
+    el.nowName.textContent = COLOURS[glyph.colour].instrument;
   }
 
   if (!segment) {
@@ -583,19 +591,8 @@ function previewLetter(name) {
   engine.preview(name, state.speed).catch(() => {});
 }
 
-buildKeyboard(el.keyboard, state.script, keyboardHooks);
+buildKeyboard(el.keyboard, keyboardHooks);
 buildAlphabet(el.alphabet, { onPreview: previewLetter });
-
-el.scriptToggle.querySelectorAll('button').forEach((button) => {
-  button.addEventListener('click', () => {
-    state.script = button.dataset.script;
-    el.scriptToggle.querySelectorAll('button').forEach((other) => {
-      other.setAttribute('aria-pressed', String(other === button));
-    });
-    buildKeyboard(el.keyboard, state.script, keyboardHooks);
-    el.text.placeholder = state.script === 'hebrew' ? 'הקלד מילה או משפט' : 'type a word or a sentence';
-  });
-});
 
 function insertAtCursor(char) {
   const start = el.text.selectionStart ?? el.text.value.length;

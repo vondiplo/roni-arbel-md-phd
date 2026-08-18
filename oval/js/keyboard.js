@@ -1,32 +1,23 @@
-// The Hebrew layout is ported from res/xml/qwerty.xml. The original mislabelled
-// its comma and full stop key codes; the labels here are what the keys insert.
-//
-// The Latin layout offers the transcription homologues on a QWERTY bed. F, V, X
-// and Y are absent because the transcription has no character for them.
-const LAYOUTS = {
-  hebrew: [
-    [',', '.', 'ק', 'ר', 'א', 'ט', 'ו', 'ן', 'ם', 'פ'],
-    ['ש', 'ד', 'ג', 'כ', 'ע', 'י', 'ח', 'ל', 'ך', 'ף'],
-    ['ז', 'ס', 'ב', 'ה', 'נ', 'מ', 'צ', 'ת', 'ץ'],
-  ],
-  latin: [
-    ['Q', 'W', 'E', 'R', 'T', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'G', 'H', 'J', 'K', 'L'],
-    ['Z', 'C', 'B', 'N', 'M', ',', '.'],
-  ],
-};
+// The keys OVAL's twenty-two characters are written with, on a QWERTY bed. F, V,
+// X and Y are absent because no character answers to them. A reader who wants
+// the characters' Hebrew homologues types them with their own keyboard, which the
+// player accepts; only this layout is offered.
+const ROWS = [
+  ['Q', 'W', 'E', 'R', 'T', 'U', 'I', 'O', 'P'],
+  ['A', 'S', 'D', 'G', 'H', 'J', 'K', 'L'],
+  ['Z', 'C', 'B', 'N', 'M', ',', '.'],
+];
 
 /**
- * Renders the on-screen keyboard for one script.
+ * Renders the on-screen keyboard.
  *
  * As in the Android app, touching a key sounds its letter immediately and
  * inserts it on release.
  */
-export function buildKeyboard(root, script, { onInsert, onBackspace, onPreview }) {
+export function buildKeyboard(root, { onInsert, onBackspace, onPreview }) {
   root.textContent = '';
-  root.dataset.script = script;
 
-  for (const row of LAYOUTS[script]) {
+  for (const row of ROWS) {
     const rowEl = document.createElement('div');
     rowEl.className = 'kb-row';
     for (const char of row) {
